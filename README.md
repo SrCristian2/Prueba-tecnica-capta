@@ -8,6 +8,65 @@ API REST en TypeScript que calcula fechas hábiles en Colombia, considerando dí
 - ✅ Consideración de festivos nacionales colombianos
 - ✅ Horarios laborales (8:00 AM - 5:00 PM, almuerzo 12:00 PM - 1:00 PM)
 - ✅ Manejo de zona horaria de Colombia (America/Bogota)
+- ✅ Desplegado en Render como servicio web
+
+## 🌐 Despliegue en Render
+
+Esta API está configurada para desplegarse automáticamente en Render. Sigue estos pasos:
+
+### Paso 1: Preparar el repositorio
+1. Asegúrate de que todos los cambios estén commitados en tu repositorio de GitHub
+2. El proyecto ya tiene la configuración necesaria en `render.yaml`
+
+### Paso 2: Conectar con Render
+1. Ve a [render.com](https://render.com) e inicia sesión con tu cuenta de GitHub
+2. Haz clic en "New +" y selecciona "Web Service"
+3. Conecta tu cuenta de GitHub si aún no lo has hecho
+4. Busca y selecciona tu repositorio `Prueba-tecnica-capta`
+
+### Paso 3: Configurar el proyecto
+1. **Name**: `capta-api` (o el nombre que prefieras)
+2. **Region**: Selecciona la región más cercana
+3. **Branch**: `main` (o la rama que uses para producción)
+4. **Runtime**: Render detectará automáticamente que es Node.js
+5. **Build Command**: `npm install && npm run build`
+6. **Start Command**: `npm start`
+7. **Plan**: Selecciona "Free" para comenzar
+
+### Paso 4: Variables de entorno (opcional)
+- `NODE_ENV`: `production` (ya está configurado en `render.yaml`)
+- Render configurará automáticamente el `PORT`
+
+### Paso 5: Desplegar
+1. Haz clic en "Create Web Service"
+2. Render comenzará el proceso de build y deploy automáticamente
+3. El despliegue inicial puede tomar unos minutos
+
+### Paso 6: Verificar el despliegue
+Una vez desplegado, tu API estará disponible en una URL como: `https://capta-api.onrender.com`
+
+**Endpoints disponibles:**
+- `GET /health` - Health check
+- `GET /api/v1/calculate-working-date?days=5&date=2023-01-01` - Calcular fecha hábil
+
+### Ejemplo de uso:
+```bash
+curl "https://capta-api.onrender.com/api/v1/calculate-working-date?days=5&date=2023-01-01"
+```
+
+### 🔄 Despliegue automático
+- Render desplegará automáticamente cada vez que hagas push a la rama `main`
+- Puedes ver los logs de build y deployment en el dashboard de Render
+- El servicio incluye health checks automáticos en `/health`
+
+### 💡 Características de Render
+- ✅ **SSL/HTTPS automático**: Certificados SSL gratuitos
+- ✅ **Escalado automático**: Se ajusta según la demanda
+- ✅ **Health checks**: Monitoreo automático del estado del servicio
+- ✅ **Logs en tiempo real**: Acceso completo a logs de aplicación
+- ✅ **Variables de entorno**: Gestión segura de configuración
+
+## 🛠️ Desarrollo Local
 - ✅ Respuestas en UTC según ISO 8601
 - ✅ Validación robusta de parámetros
 - ✅ Tipado estricto en TypeScript
@@ -279,14 +338,15 @@ Esta arquitectura garantiza:
 
 ## 🚀 Despliegue
 
-### Vercel
-1. Conectar el repositorio a Vercel
-2. La configuración está en `vercel.json`
-3. Despliegue automático en cada push
+### Render
+1. Conectar el repositorio a Render
+2. La configuración está en `render.yaml`
+3. Despliegue automático en cada push a `main`
+4. Health checks automáticos en `/health`
 
 ### Variables de Entorno
-- `PORT`: Puerto del servidor (default: 3000)
-- `NODE_ENV`: Entorno de ejecución
+- `PORT`: Puerto del servidor (configurado automáticamente por Render)
+- `NODE_ENV`: Entorno de ejecución (configurado como `production`)
 
 ## 📚 Tecnologías Utilizadas
 
